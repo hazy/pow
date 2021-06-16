@@ -71,7 +71,7 @@ defmodule Pow.Phoenix.SessionControllerTest do
 
     test "with invalid params", %{conn: conn} do
       conn = post conn, Routes.pow_session_path(conn, :create, @invalid_params)
-      assert html = html_response(conn, 200)
+      assert html = html_response(conn, 401)
       assert get_flash(conn, :error) == "The provided login details did not work. Please verify your credentials, and try again."
       assert html =~ "<input id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"test@example.com\">"
       assert html =~ "<input id=\"user_password\" name=\"user[password]\" type=\"password\">"
@@ -90,7 +90,7 @@ defmodule Pow.Phoenix.SessionControllerTest do
 
     test "with invalid params and request_path", %{conn: conn} do
       conn = post conn, Routes.pow_session_path(conn, :create, Map.put(@invalid_params, "request_path", "/custom-url"))
-      assert html = html_response(conn, 200)
+      assert html = html_response(conn, 401)
       assert get_flash(conn, :error) == "The provided login details did not work. Please verify your credentials, and try again."
       assert html =~ "?request_path=%2Fcustom-url"
     end

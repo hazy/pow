@@ -47,6 +47,7 @@ defmodule Pow.Phoenix.SessionController do
     conn
     |> assign(:changeset, Plug.change_user(conn, conn.params["user"]))
     |> put_flash(:error, messages(conn).invalid_credentials(conn))
+    |> put_status(401)
     |> render("new.html")
   end
 
